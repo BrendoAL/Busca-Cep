@@ -7,13 +7,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-//Voltar no minuto 7 pelo lombok e ide
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder(toBuilder = true)							
 public class Address {
 	@Id
 	private String zipcode;
@@ -21,7 +20,4 @@ public class Address {
 	private String district;
 	private String city;
 	private String state;
-	
-	public void setZipCode(String zipcode) {
-	}
 }

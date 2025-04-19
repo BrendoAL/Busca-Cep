@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.lambda.cep.exception.NoContentException;
+import br.com.lambda.cep.exception.NotReadyException;
 import br.com.lambda.cep.model.Address;
 import br.com.lambda.cep.service.CepService;
 import jakarta.websocket.server.PathParam;
@@ -22,9 +23,7 @@ public class CepController {
 	}
 	
 	@GetMapping("/zipcode/{zipcode}")
-	public Address getAddressByZipcode(@PathVariable("zipcode") String zipcode) throws NoContentException {
-		Address address = new Address();
-		address.setZipCode(zipcode);
-		return address;
+	public Address getAddressByZipcode(@PathVariable("zipcode") String zipcode) throws NoContentException, NotReadyException {
+		return this.service.getAddressByZipcode(zipcode);
 	}
 }

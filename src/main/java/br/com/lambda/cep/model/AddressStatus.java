@@ -11,17 +11,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Builder
+@Builder(toBuilder = true)
 public class AddressStatus {
 	
 	public static final int DEFAULT_ID = 1;
 	@Id
 	private int id;
 	private Status status;
-	public static AddressStatus builder() {
-        return new AddressStatus(); 
-    }
-	public Object status(Status needSetup) {
-		return new Object();
-	}
 }
