@@ -36,9 +36,6 @@ import br.com.lambda.cep.service.CepService;
 
 class CepApplicationTests {
 	
-	@Value("${mockServerPort}")
-    private int mockServerPort;
-
 	private MockServerClient mockServer;
 	
 	@Autowired
@@ -46,13 +43,6 @@ class CepApplicationTests {
 	
 	@Autowired
 	private CepService service;
-	
-	@BeforeEach
-    void setUp() {
-        System.setProperty("correios.base.url", "http://localhost:" + mockServerPort + "/ceps.csv");
-    }
-	
-	
 	
 	@Test
 	@Order(1)
@@ -77,7 +67,7 @@ class CepApplicationTests {
 	@Test
 	@Order(3)
 	public void testSetupOk() throws Exception {
-		String bodyStr = "SP,Sao Paulo,Vila Formosa,03358150,Rua Ituri,,,,,,,,,," ;
+		String bodyStr = "AM,Manaus,Lago Azul,69018666,Rua Arauna (Res V Melhor - 2 Etapa),,,,,,,,,," ;
 		mockServer.when(request()
 				.withPath("/ceps.csv")
 				.withMethod("GET"))
@@ -97,16 +87,16 @@ class CepApplicationTests {
 	@Test
 	@Order(5)
 	public void testGetZipcodeOk() throws Exception{
-		MvcResult result = mockMvc.perform(get("/zipcode/03358150")).andExpect(status().isOk()).andReturn();
+		MvcResult result = mockMvc.perform(get("/zipcode/69018666")).andExpect(status().isOk()).andReturn();
 		String resultStr = result.getResponse().getContentAsString();
 		
 		String addressToCompareStr = new ObjectMapper().writeValueAsString(
 				Address.builder()
-					.city("Sao Paulo")
-					.district("Vila Formosa")
-					.state("SP")
-					.street("Rua Ituri")
-					.zipcode("03358150")
+					.city("Manaus")
+					.district("Lago Azul")
+					.state("AM")
+					.street("Rua Arauna (Res V Melhor - 2 Etapa)")
+					.zipcode("69018666")
 					.build());
 	
 				JSONAssert.assertEquals(addressToCompareStr, resultStr, false);
