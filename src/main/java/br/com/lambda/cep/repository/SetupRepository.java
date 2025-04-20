@@ -1,7 +1,6 @@
 package br.com.lambda.cep.repository;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
@@ -34,17 +33,18 @@ public class SetupRepository {
 			resultStr = EntityUtils.toString(entity); 
 		}
 		
-		String[] resultStrSplited = resultStr.split("\n");
+		String[] resultStrSplited = resultStr.split("\\r?\\n"); //adicionei o \\r
 		
 		for (String currentLine : resultStrSplited) {
 			String[] currentLineSplited = currentLine.split(",");
 					
+			//retorno dos resultados 
 			resultList.add(Address.builder() 
-					.zipcode(StringUtils.leftPad(currentLineSplited[3], 8, "0")) 
+					.zipcode(StringUtils.leftPad(currentLineSplited[3].trim(), 8, "0")) 
 					.state(currentLineSplited[0])
 					.city(currentLineSplited[1])
-					.district(currentLineSplited[2])
-					.street(currentLineSplited.length > 4 ? currentLineSplited[4] : null).build());
+					.district(currentLineSplited[2]) 
+					.street(currentLineSplited.length > 4 ? currentLineSplited[4].trim()  : null).build());
 			; 
 		}
 		return resultList;

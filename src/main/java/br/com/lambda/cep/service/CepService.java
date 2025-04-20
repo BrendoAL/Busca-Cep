@@ -3,6 +3,7 @@ package br.com.lambda.cep.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,9 @@ public class CepService {
 	@Autowired
 	private SetupRepository setupRepository;
 	
-
+	@Value("${setup.on.startup}")
+	private boolean setupOnStartup;
+	
 	public Status getStatus() {
 		return this.addressStatusRepository.findById(AddressStatus.DEFAULT_ID)
 
@@ -56,6 +59,9 @@ public class CepService {
 	
 	@EventListener(ApplicationStartedEvent.class)
 	protected void setupOnStartup() {
+		if (!setupOnStartup)
+			return;
+		
 		try {
 			this.setup();
 		} catch(Exception exc) {

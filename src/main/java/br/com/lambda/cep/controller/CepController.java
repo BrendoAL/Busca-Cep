@@ -17,6 +17,7 @@ public class CepController {
 	@Autowired 
 	private CepService service;
 
+	//vai retornar o status e o cep
 	@GetMapping("/status")
 	public String getStatus(){
 		return "Service status: " + this.service.getStatus();
