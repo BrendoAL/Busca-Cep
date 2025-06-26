@@ -2,14 +2,15 @@
 
 Este é um projeto de API RESTful para consulta de CEPs brasileiros através de uma base de dados armazenada localmente em MySQL.
 
-## Arquitetura utilizada
+📐## Arquitetura utilizada
 
-Separação em camadas (Controller, Service e Repository, Model e Exceptions)  
+Separação em camadas MVC (Controller, Service e Repository, Model e Exceptions)  
 Injeção de dependências com Spring
 
-## Padrões de projetos utilizados
+📘## Padrões de projetos utilizados
 
 Repository: utilizado para abstrair a camada de acesso ao banco de dados.
+Service layer: centraliza as regras de negócio e as chamadas ao repositório, separando a lógica de controle da lógica de domínio.
 
 ## ✔ Tecnologias e bibliotecas usadas
 
@@ -20,7 +21,9 @@ Repository: utilizado para abstrair a camada de acesso ao banco de dados.
 - H2 Database  
 - Lombok  
 - JUnit 5  
-- Mockito  
+- Mockito
+- Postman
+- Docker
 
 ## 🔎Endpoints
 
